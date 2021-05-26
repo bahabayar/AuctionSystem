@@ -33,7 +33,7 @@ namespace ESourcing.Products
         public void ConfigureServices(IServiceCollection services)
         {
 
-            services.AddControllers();
+          
 
             #region Configuration Dependencies
             services.Configure<ProductDatabaseSettings>(Configuration.GetSection(nameof(ProductDatabaseSettings)));
@@ -45,6 +45,14 @@ namespace ESourcing.Products
             services.AddTransient<IProductRepository, ProductRepository>();
             #endregion
 
+            services.AddControllers();
+            #region Swagger Dependencies
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ESourcing.Products", Version = "v1" });
+            });
+            #endregion
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,6 +61,8 @@ namespace ESourcing.Products
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ESourcing.Products"));
               
             }
 
