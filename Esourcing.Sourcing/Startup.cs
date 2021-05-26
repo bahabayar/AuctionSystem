@@ -1,3 +1,5 @@
+using Esourcing.Sourcing.Data;
+using Esourcing.Sourcing.Data.Interface;
 using Esourcing.Sourcing.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -33,6 +35,8 @@ namespace Esourcing.Sourcing
 
             services.AddSingleton<ISourcingDatabaseSettings>(sp =>
                 sp.GetRequiredService<IOptions<SourcingDatabaseSettings>>().Value);
+
+            services.AddTransient<ISourcingContext, SourcingContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
