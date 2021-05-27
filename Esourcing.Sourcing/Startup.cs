@@ -47,6 +47,7 @@ namespace Esourcing.Sourcing
             services.AddTransient<IAuctionRepository, AuctionRepository>();
             services.AddTransient<IBidRepository, BidRepository>();
 
+            services.AddAutoMapper(typeof(Startup));
            
             #endregion
 
